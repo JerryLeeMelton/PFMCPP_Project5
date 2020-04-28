@@ -119,6 +119,9 @@ struct Chameleon
     void changeColor(int newRedValue, int newGreenValue, int newBlueValue);
     void flickTongue(float flickDistance, int numberOfFlicks);
     void eat(int fliesToEat);
+    void printNumberOfTeeth();
+    void printNumberOfScales();
+    void printWeight();
 };
 
 Chameleon::Chameleon() :
@@ -177,6 +180,21 @@ void Chameleon::eat (int fliesToEat)
     weight += weightGained;
 }
 
+void Chameleon::printNumberOfTeeth()
+{
+    std::cout << "This Chameleon has " << this->numberOfTeeth << " teeth." << std::endl;
+}
+
+void Chameleon::printNumberOfScales()
+{
+    std::cout << "This Chameleon has " << this->numberOfScales << " scales." << std::endl;
+}
+
+void Chameleon::printWeight()
+{
+    std::cout << "This Chameleon weighs " << this->weight << std::endl;
+}
+
 /*
  copied UDT 2:
  */
@@ -197,6 +215,10 @@ struct FastFoodRestaurant
     void restockSupplies(int newPotatoes, int newBurgers);
     bool makeChameleonBurger(Chameleon& chameleon);
     void calculateProfit();
+    void printTotalProfits();
+    void printProfitPerBurger();
+    void printProfitPerPotato();
+
 };
 
 FastFoodRestaurant::FastFoodRestaurant() :
@@ -272,6 +294,22 @@ void FastFoodRestaurant::calculateProfit()
         potatoesSold -= 1;
     }
 }
+
+void FastFoodRestaurant::printTotalProfits()
+{
+    std::cout << "Current total profits: $" << this->totalProfits << std::endl;
+}
+
+void FastFoodRestaurant::printProfitPerBurger()
+{
+    std::cout << "This restaurant makes $" << this->profitPerBurger << " profit per burger." << std::endl;
+}
+
+void FastFoodRestaurant::printProfitPerPotato()
+{
+    std::cout << "This restaurant makes $" << this->profitPerPotato << " profit per potato." << std::endl;
+}
+
 /*
  copied UDT 3:
  */
@@ -289,6 +327,9 @@ struct ElectricGuitar
     void setVolume(float newVolumePosition);
     void setTone(float newTonePosition);
     void setVolumeGradually(float newVolumePosition);
+    void printNeckLength();
+    void printNumberOfPickups();
+    void printNumberOfStrings();
 };
 
 ElectricGuitar::ElectricGuitar() :
@@ -346,6 +387,22 @@ void ElectricGuitar::setVolumeGradually(float newVolumePosition)
         }
     }
 }
+
+void ElectricGuitar::printNeckLength()
+{
+    std::cout << "This guitar has a neck that is " << this->neckLength << " inches long." << std::endl;
+}
+
+void ElectricGuitar::printNumberOfPickups()
+{
+    std::cout << "This guitar has " << this->numberOfPickups << " pickups." << std::endl;
+}
+
+void ElectricGuitar::printNumberOfStrings()
+{
+    std::cout << "This guitar has " << this->numberOfStrings << " strings." << std::endl;
+}
+
 /*
  new UDT 4:
  */
@@ -404,29 +461,40 @@ int main()
     cham.changeColor(100, 140, 50);
     std::cout << "This Chameleon just ran " << cham.run(15.0f, 60.0) << " units." << std::endl;
     std::cout << "This Chameleon has " << cham.numberOfTeeth << " teeth." << std::endl;
+    cham.printNumberOfTeeth();
     std::cout << "This Chameleon has " << cham.numberOfScales << " scales." << std::endl;
+    cham.printNumberOfScales();
     std::cout << "This Chameleon weighs " << cham.weight << std::endl;
+    cham.printWeight();
     cham.flickTongue(2.5, 3);
     cham.flickTongue(3.0, 5);
     cham.eat(3);
     cham.eat(6);
     std::cout << "This Chameleon weighs " << cham.weight << " after eating" << std::endl;
+    cham.printWeight();
     std::cout << std::endl;
 
     FastFoodRestaurant burgerKing;
     std::cout << "Initial profits: $" << burgerKing.totalProfits << std::endl;
+    burgerKing.printTotalProfits();
     burgerKing.makeFries(67);
     burgerKing.makeBurger(28);
     burgerKing.restockSupplies(35, 24);
     std::cout << "This restaurant makes $" << burgerKing.profitPerBurger << " profit per burger." << std::endl;
+    burgerKing.printProfitPerBurger();
     std::cout << "This restaurant makes $" << burgerKing.profitPerPotato << " profit per potato." << std::endl;
+    burgerKing.printProfitPerPotato();
     burgerKing.calculateProfit();
     std::cout << "Profits after sales: $" << burgerKing.totalProfits << std::endl;
+    burgerKing.printTotalProfits();
     std::cout << std::endl;
 
     ElectricGuitar axe;
     std::cout << "This guitar has a neck that is " << axe.neckLength << " inches long." << std::endl;
+    axe.printNeckLength();
     std::cout << "This guitar has " << axe.numberOfPickups << " pickups and " << axe.numberOfStrings << " strings." << std::endl;
+    axe.printNumberOfPickups();
+    axe.printNumberOfStrings();
     axe.setVolume(0.9f);
     axe.setTone(0.5f);
     axe.outputSound();
