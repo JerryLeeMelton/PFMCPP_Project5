@@ -34,6 +34,8 @@ send me a DM to check your pull request
  */
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
+
 struct Chameleon
 {
     struct Color
@@ -63,6 +65,8 @@ struct Chameleon
         {
             alpha = newAlphaValue;
         }
+
+        JUCE_LEAK_DETECTOR(Color)
     };
 
     float length {5.0f};
@@ -81,6 +85,23 @@ struct Chameleon
     void printNumberOfTeeth();
     void printNumberOfScales();
     void printWeight();
+
+    JUCE_LEAK_DETECTOR(Chameleon)
+};
+
+struct ChameleonWrapper
+{
+    Chameleon* chameleon = nullptr;
+
+    ChameleonWrapper(Chameleon* c) : 
+    chameleon(c)
+    {
+
+    }
+    ~ChameleonWrapper()
+    {
+        delete chameleon;
+    }
 };
 
 Chameleon::Chameleon() :
@@ -178,6 +199,22 @@ struct FastFoodRestaurant
     void printProfitPerBurger();
     void printProfitPerPotato();
 
+    JUCE_LEAK_DETECTOR(FastFoodRestaurant)
+};
+
+struct FastFoodRestaurantWrapper
+{
+    FastFoodRestaurant* restaurant = nullptr;
+
+    FastFoodRestaurantWrapper(FastFoodRestaurant* ffr) :
+    restaurant(ffr)
+    {
+
+    }
+    ~FastFoodRestaurantWrapper()
+    {
+        delete restaurant;
+    }
 };
 
 FastFoodRestaurant::FastFoodRestaurant() :
@@ -289,6 +326,23 @@ struct ElectricGuitar
     void printNeckLength();
     void printNumberOfPickups();
     void printNumberOfStrings();
+
+    JUCE_LEAK_DETECTOR(ElectricGuitar)
+};
+
+struct ElectricGuitarWrapper
+{
+    ElectricGuitar* guitar = nullptr;
+
+    ElectricGuitarWrapper(ElectricGuitar* gtr) :
+    guitar(gtr)
+    {
+
+    }
+    ~ElectricGuitarWrapper()
+    {
+        delete guitar;
+    }
 };
 
 ElectricGuitar::ElectricGuitar() :
@@ -374,6 +428,23 @@ struct PetStore
 
     PetStore();
     ~PetStore();
+
+    JUCE_LEAK_DETECTOR(PetStore)
+};
+
+struct PetStoreWrapper
+{
+    PetStore* store = nullptr;
+
+    PetStoreWrapper(PetStore* petStore) :
+    store(petStore)
+    {
+
+    }
+    ~PetStoreWrapper()
+    {
+        delete store;
+    }
 };
 
 PetStore::PetStore()
@@ -402,6 +473,23 @@ struct MusicStoreFastFoodCombo
 
     MusicStoreFastFoodCombo();
     ~MusicStoreFastFoodCombo();
+
+    JUCE_LEAK_DETECTOR(MusicStoreFastFoodCombo)
+};
+
+struct MusicStoreFastFoodComboWrapper
+{
+    MusicStoreFastFoodCombo* store = nullptr;
+
+    MusicStoreFastFoodComboWrapper(MusicStoreFastFoodCombo* msffc) :
+    store(msffc)
+    {
+
+    }
+    ~MusicStoreFastFoodComboWrapper()
+    {
+        delete store;
+    }
 };
 
 MusicStoreFastFoodCombo::MusicStoreFastFoodCombo()
@@ -416,53 +504,53 @@ MusicStoreFastFoodCombo::~MusicStoreFastFoodCombo()
 
 int main()
 {
-    Chameleon cham;
-    cham.changeColor(100, 140, 50);
-    std::cout << "This Chameleon just ran " << cham.run(15.0f, 60.0) << " units." << std::endl;
-    std::cout << "This Chameleon has " << cham.numberOfTeeth << " teeth." << std::endl;
-    cham.printNumberOfTeeth();
-    std::cout << "This Chameleon has " << cham.numberOfScales << " scales." << std::endl;
-    cham.printNumberOfScales();
-    std::cout << "This Chameleon weighs " << cham.weight << std::endl;
-    cham.printWeight();
-    cham.flickTongue(2.5, 3);
-    cham.flickTongue(3.0, 5);
-    cham.eat(3);
-    cham.eat(6);
-    std::cout << "This Chameleon weighs " << cham.weight << " after eating" << std::endl;
-    cham.printWeight();
+    ChameleonWrapper cham(new Chameleon());
+    cham.chameleon->changeColor(100, 140, 50);
+    std::cout << "This Chameleon just ran " << cham.chameleon->run(15.0f, 60.0) << " units." << std::endl;
+    std::cout << "This Chameleon has " << cham.chameleon->numberOfTeeth << " teeth." << std::endl;
+    cham.chameleon->printNumberOfTeeth();
+    std::cout << "This Chameleon has " << cham.chameleon->numberOfScales << " scales." << std::endl;
+    cham.chameleon->printNumberOfScales();
+    std::cout << "This Chameleon weighs " << cham.chameleon->weight << std::endl;
+    cham.chameleon->printWeight();
+    cham.chameleon->flickTongue(2.5, 3);
+    cham.chameleon->flickTongue(3.0, 5);
+    cham.chameleon->eat(3);
+    cham.chameleon->eat(6);
+    std::cout << "This Chameleon weighs " << cham.chameleon->weight << " after eating" << std::endl;
+    cham.chameleon->printWeight();
     std::cout << std::endl;
 
-    FastFoodRestaurant burgerKing;
-    std::cout << "Initial profits: $" << burgerKing.totalProfits << std::endl;
-    burgerKing.printTotalProfits();
-    burgerKing.makeFries(67);
-    burgerKing.makeBurger(28);
-    burgerKing.restockSupplies(35, 24);
-    std::cout << "This restaurant makes $" << burgerKing.profitPerBurger << " profit per burger." << std::endl;
-    burgerKing.printProfitPerBurger();
-    std::cout << "This restaurant makes $" << burgerKing.profitPerPotato << " profit per potato." << std::endl;
-    burgerKing.printProfitPerPotato();
-    burgerKing.calculateProfit();
-    std::cout << "Profits after sales: $" << burgerKing.totalProfits << std::endl;
-    burgerKing.printTotalProfits();
+    FastFoodRestaurantWrapper burgerKing(new FastFoodRestaurant());
+    std::cout << "Initial profits: $" << burgerKing.restaurant->totalProfits << std::endl;
+    burgerKing.restaurant->printTotalProfits();
+    burgerKing.restaurant->makeFries(67);
+    burgerKing.restaurant->makeBurger(28);
+    burgerKing.restaurant->restockSupplies(35, 24);
+    std::cout << "This restaurant makes $" << burgerKing.restaurant->profitPerBurger << " profit per burger." << std::endl;
+    burgerKing.restaurant->printProfitPerBurger();
+    std::cout << "This restaurant makes $" << burgerKing.restaurant->profitPerPotato << " profit per potato." << std::endl;
+    burgerKing.restaurant->printProfitPerPotato();
+    burgerKing.restaurant->calculateProfit();
+    std::cout << "Profits after sales: $" << burgerKing.restaurant->totalProfits << std::endl;
+    burgerKing.restaurant->printTotalProfits();
     std::cout << std::endl;
 
-    ElectricGuitar axe;
-    std::cout << "This guitar has a neck that is " << axe.neckLength << " inches long." << std::endl;
-    axe.printNeckLength();
-    std::cout << "This guitar has " << axe.numberOfPickups << " pickups and " << axe.numberOfStrings << " strings." << std::endl;
-    axe.printNumberOfPickups();
-    axe.printNumberOfStrings();
-    axe.setVolume(0.9f);
-    axe.setTone(0.5f);
-    axe.outputSound();
-    axe.setVolumeGradually(0.3f);
-    axe.setVolumeGradually(1.0f);
+    ElectricGuitarWrapper axe(new ElectricGuitar());
+    std::cout << "This guitar has a neck that is " << axe.guitar->neckLength << " inches long." << std::endl;
+    axe.guitar->printNeckLength();
+    std::cout << "This guitar has " << axe.guitar->numberOfPickups << " pickups and " << axe.guitar->numberOfStrings << " strings." << std::endl;
+    axe.guitar->printNumberOfPickups();
+    axe.guitar->printNumberOfStrings();
+    axe.guitar->setVolume(0.9f);
+    axe.guitar->setTone(0.5f);
+    axe.guitar->outputSound();
+    axe.guitar->setVolumeGradually(0.3f);
+    axe.guitar->setVolumeGradually(1.0f);
     std::cout << std::endl;
 
-    PetStore petco;
-    MusicStoreFastFoodCombo guitarCenterKFC;
+    PetStoreWrapper petco(new PetStore());
+    MusicStoreFastFoodComboWrapper guitarCenterKFC(new MusicStoreFastFoodCombo());
 
     std::cout << "good to go!" << std::endl;
 }
