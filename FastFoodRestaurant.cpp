@@ -1,5 +1,4 @@
 #include "FastFoodRestaurant.h"
-#include "Chameleon.h"
 
 FastFoodRestaurant::FastFoodRestaurant() :
 burgersInFreezer(200),
