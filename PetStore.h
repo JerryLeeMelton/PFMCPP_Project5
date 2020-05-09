@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include "LeakedObjectDetector.h"
 #include "Chameleon.h"
 

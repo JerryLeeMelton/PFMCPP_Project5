@@ -1,6 +1,5 @@
 #include "Chameleon.h"
 
-
 Chameleon::Color::Color()  :
 red(0),
 green(135),
@@ -18,9 +17,9 @@ void Chameleon::Color::setColor(int newRedValue, int newGreenValue, int newBlueV
 }
 
 void Chameleon::Color::setAlpha(int newAlphaValue)
-        {
-            alpha = newAlphaValue;
-        }
+{
+    alpha = newAlphaValue;
+}
 
 
 

@@ -1,4 +1,5 @@
 #include "FastFoodRestaurant.h"
+#include "Chameleon.h"
 
 FastFoodRestaurant::FastFoodRestaurant() :
 burgersInFreezer(200),
@@ -64,13 +65,13 @@ void FastFoodRestaurant::calculateProfit()
     while(burgersSold > 0)
     {
         totalProfits += profitPerBurger;
-        burgersSold -= 1;
+        --burgersSold;
     }
 
     while(potatoesSold > 0)
     {
         totalProfits += profitPerPotato;
-        potatoesSold -= 1;
+        --potatoesSold;
     }
 }
 
