@@ -1,7 +1,6 @@
 #pragma once
 
 #include "LeakedObjectDetector.h"
-#include "Chameleon.h"
 
 struct Chameleon;
 
